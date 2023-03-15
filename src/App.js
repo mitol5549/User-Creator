@@ -6,6 +6,7 @@ import ErrorModal from "./components/UI/ErrorModal";
 
 const App = () => {
   const [usersList, setUsersList] = useState([]);
+  const [error, setError] = useState();
 
   const addUserHandler = (userName, userAge) => {
     setUsersList((prevUsersList) => [
@@ -14,11 +15,23 @@ const App = () => {
     ]);
   };
 
+  const errorHandler = (error) => {
+    setError({ title: error.title, message: error.message });
+  };
+
+  const cancelErrorHandler = () => setError(null);
+
   return (
     <div>
-      <ErrorModal title="An error occured!" message="Something went wrong!" />
-      <AddUser onAddUser={addUserHandler} />
-      <UsersList users={usersList} />
+      {error && (
+        <ErrorModal
+          title={error.title}
+          message={error.message}
+          onCancelError={cancelErrorHandler}
+        />
+      )}
+      <AddUser onAddUser={addUserHandler} onError={errorHandler} />
+      {usersList.length > 0 && <UsersList users={usersList} />}
     </div>
   );
 };

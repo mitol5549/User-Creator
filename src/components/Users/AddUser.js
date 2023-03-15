@@ -13,10 +13,18 @@ const AddUser = (props) => {
     event.preventDefault();
 
     if (enteredUserName.trim().length === 0 || enteredAge.trim().length === 0) {
+      props.onError({
+        title: "Invalid input",
+        message: "Please enter a valid name and age (non-empty values).",
+      });
       return;
     }
 
     if (+enteredAge < 1) {
+      props.onError({
+        title: "Invalid age",
+        message: "Please enter a valid age (> 0).",
+      });
       return;
     }
 
