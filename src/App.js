@@ -22,7 +22,7 @@ const App = () => {
   const cancelErrorHandler = () => setError(null);
 
   return (
-    <div>
+    <>
       {error && (
         <ErrorModal
           title={error.title}
@@ -32,7 +32,7 @@ const App = () => {
       )}
       <AddUser onAddUser={addUserHandler} onError={errorHandler} />
       {usersList.length > 0 && <UsersList users={usersList} />}
-    </div>
+    </>
   );
 };
 
